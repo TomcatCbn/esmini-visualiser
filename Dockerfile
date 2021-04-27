@@ -39,6 +39,11 @@ ADD ./osi_linux.7z ~/esmini/externals/OSI/
 ADD ./sumo_linux.7z ~/esmini/externals/SUMO/
 
 RUN cd ~/esmini && \
+cd externals/OSI && \
+tar -zxf osi_linux.7z && \
+cd ../SUMO && \
+tar -zxf sumo_linux.7z && \
+cd ~/esmini && \
 mkdir build && \
 cd build && \
 cmake ../ -DUSE_OSG=true && \
