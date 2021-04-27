@@ -42,7 +42,7 @@ COPY ./osi.7z /root/esmini-self/externals/OSI/
 COPY ./sumo.7z /root/esmini-self/externals/SUMO/
 COPY ./googletest.7z /root/esmini-self/externals/googletest/
 COPY ./models.7z /root/resources/
-COPY ./OSG.7z /root/esmini-self/externals/OpenSceneGraph/
+COPY ./osg.7z /root/esmini-self/externals/OpenSceneGraph/
 
 RUN cd ~/esmini-self && \
 #cd externals/OSI && \
@@ -56,6 +56,12 @@ mkdir build && \
 cd build && \
 cmake ../ -DUSE_OSG=true && \
 make -j4
+
+# for open scenario generate
+#RUN cd ～/ && \
+#pip install scenariogeneration -y && \
+#sudo pip3 install Django==3.0.6 -i https://pypi.tuna.tsinghua.edu.cn/simple -y && \
+
 
 ENV DISPLAY :1.0
 ENV LENGTH 20
