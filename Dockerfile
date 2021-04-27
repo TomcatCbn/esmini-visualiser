@@ -31,9 +31,14 @@ git clone https://github.com/esmini/esmini && \
 cd esmini && \
 mkdir -p externals/OpenSceneGraph/v10/build && \
 OSG_PATH=~/OpenSceneGraph && \
-cp -a $OSG_PATH/build/lib externals/OpenSceneGraph/v10/ && \
-cp -a $OSG_PATH/build/include externals/OpenSceneGraph/v10/build && \
-cp -a $OSG_PATH/include externals/OpenSceneGraph/v10/ && \
+cp -a $OSG_PATH/build/lib externals/OpenSceneGraph/linux/ && \
+cp -a $OSG_PATH/build/include externals/OpenSceneGraph/linux/build && \
+cp -a $OSG_PATH/include externals/OpenSceneGraph/linux/
+
+ADD ./osi_linux.7z ~/esmini/externals/OSI/
+ADD ./sumo_linux.7z ~/esmini/externals/SUMO/
+
+RUN cd ~/esmini && \
 mkdir build && \
 cd build && \
 cmake ../ -DUSE_OSG=true && \
