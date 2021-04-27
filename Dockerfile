@@ -41,7 +41,7 @@ mkdir ~/esmini-self/externals/googletest
 COPY ./osi.7z /root/esmini-self/externals/OSI/
 COPY ./sumo.7z /root/esmini-self/externals/SUMO/
 COPY ./googletest.7z /root/esmini-self/externals/googletest/
-COPY ./models.7z /root/resources/
+COPY ./models.7z /root/esmini-self/resources/
 COPY ./osg.7z /root/esmini-self/externals/OpenSceneGraph/
 
 RUN cd ~/esmini-self && \
