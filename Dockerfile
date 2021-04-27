@@ -27,23 +27,31 @@ make install && \
 ldconfig
 
 RUN cd ~/ && \
-git clone https://github.com/esmini/esmini && \
-cd esmini && \
-mkdir -p externals/OpenSceneGraph/v10/build && \
-OSG_PATH=~/OpenSceneGraph && \
-cp -a $OSG_PATH/build/lib externals/OpenSceneGraph/linux/ && \
-cp -a $OSG_PATH/build/include externals/OpenSceneGraph/linux/build && \
-cp -a $OSG_PATH/include externals/OpenSceneGraph/linux/
+git clone https://github.com/TomcatCbn/esmini-self && \
+cd esmini-self && \
+#mkdir -p externals/OpenSceneGraph/v10/build && \
+#OSG_PATH=~/OpenSceneGraph && \
+#cp -a $OSG_PATH/build/lib externals/OpenSceneGraph/linux/ && \
+#cp -a $OSG_PATH/build/include externals/OpenSceneGraph/linux/build && \
+#cp -a $OSG_PATH/include externals/OpenSceneGraph/linux/ && \
+mkdir ~/esmini-self/externals/OSI && \
+mkdir ~/esmini-self/externals/SUMO && \
+mkdir ~/esmini-self/externals/googletest
 
-ADD ./osi_linux.7z ~/esmini/externals/OSI/
-ADD ./sumo_linux.7z ~/esmini/externals/SUMO/
+COPY ./osi.7z /root/esmini-self/externals/OSI/
+COPY ./sumo.7z /root/esmini-self/externals/SUMO/
+COPY ./googletest.7z /root/esmini-self/externals/googletest/
+COPY ./models.7z /root/resources/
+COPY ./OSG.7z /root/esmini-self/externals/OpenSceneGraph/
 
-RUN cd ~/esmini && \
-cd externals/OSI && \
-tar -zxf osi_linux.7z && \
-cd ../SUMO && \
-tar -zxf sumo_linux.7z && \
-cd ~/esmini && \
+RUN cd ~/esmini-self && \
+#cd externals/OSI && \
+#tar -zxf osi_linux.7z && \
+#cd ../SUMO && \
+#tar -zxf sumo_linux.7z && \
+#cd ../googletest && \
+#tar -zxf googletest_linux.7z && \
+#cd ~/esmini-self && \
 mkdir build && \
 cd build && \
 cmake ../ -DUSE_OSG=true && \
