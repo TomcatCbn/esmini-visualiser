@@ -69,4 +69,4 @@ ENV RESOLUTION 320x240
 ENV FRAMERATE 20
 COPY ./run.sh ~/
 RUN ["chmod", "+x", "~/run.sh"]
-ENTRYPOINT ["~/run.sh"]
+#ENTRYPOINT ["~/run.sh"]
