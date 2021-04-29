@@ -1,8 +1,12 @@
-FROM ubuntu:xenial
+FROM thewtex/opengl:ubuntu2004
 
 WORKDIR /root/
 
-RUN apt-get -yqq update && apt-get -yq install git pkg-config curl wget xvfb cmake ffmpeg:i386 ffmpeg vim && apt-get autoremove -y && apt-get clean -y && sudo ln -s /usr/bin/ffmpeg /usr/bin/avconv
+#RUN apt-get -yqq update && apt-get -yq install git pkg-config curl wget xvfb cmake ffmpeg:i386 ffmpeg vim && apt-get autoremove -y && apt-get clean -y && sudo ln -s /usr/bin/ffmpeg /usr/bin/avconv
+RUN apt-get -yqq update && apt-get -yq install build-essential git pkg-config libgl1-mesa-dev libpthread-stubs0-dev libjpeg-dev libxml2-dev libtiff5-dev libgdal-dev libpoppler-dev libdcmtk-dev libgstreamer1.0-dev libgtk2.0-dev libcairo2-dev libpoppler-glib-dev libxrandr-dev libxinerama-dev curl wget mkvtoolnix xvfb ffmpeg && apt-get autoremove -y && apt-get clean -y
+# libjasper-dev
+
+RUN apt-get -yq install cmake && apt-get autoremove -y && apt-get clean -y && pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
 
 # RUN version=3.15 && \
 # build=3 && \
@@ -32,7 +36,10 @@ cd esmini-self && \
 mkdir ~/esmini-self/externals/OSI && \
 mkdir ~/esmini-self/externals/OpenSceneGraph && \
 mkdir ~/esmini-self/externals/SUMO && \
-mkdir ~/esmini-self/externals/googletest
+mkdir ~/esmini-self/externals/googletest && \
+ln -s /usr/bin/ffmpeg /usr/bin/avconv && \
+ln -s /usr/bin/python3 /usr/bin/python
+
 
 COPY ./osi.7z /root/esmini-self/externals/OSI/
 COPY ./sumo.7z /root/esmini-self/externals/SUMO/
@@ -50,7 +57,11 @@ make -j4
 #RUN cd ～/ && \
 #pip install scenariogeneration -y && \
 #sudo pip3 install Django==3.0.6 -i https://pypi.tuna.tsinghua.edu.cn/simple -y && \
-
+RUN cd ~/ && \
+git clone https://github.com/TomcatCbn/openscenario_generator && \
+cd openscenario_generator && \
+pip install setuptools && \
+pip install -r requirements.txt
 
 ENV DISPLAY :1.0
 ENV LENGTH 20
@@ -58,4 +69,4 @@ ENV RESOLUTION 320x240
 ENV FRAMERATE 20
 COPY ./run.sh ~/
 RUN ["chmod", "+x", "~/run.sh"]
-#ENTRYPOINT ["~/run.sh"]
+# ENTRYPOINT ["~/run.sh"]
