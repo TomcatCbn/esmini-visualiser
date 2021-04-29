@@ -52,6 +52,8 @@ mkdir build && \
 cd build && \
 cmake .. && \
 make -j4
+#export ESMINI_PATH="/root/esmini-self/build/EnvironmentSimulator/Applications" && \
+#export PATH="$PATH:$ESMINI_PATH/esmini:$ESMINI_PATH/odrviewer:$ESMINI_PATH/replayer"
 
 # for open scenario generate
 #RUN cd ～/ && \
@@ -63,10 +65,12 @@ cd openscenario_generator && \
 pip install setuptools && \
 pip install -r requirements.txt
 
+EXPOSE 8000
 ENV DISPLAY :1.0
-ENV LENGTH 20
-ENV RESOLUTION 320x240
-ENV FRAMERATE 20
-COPY ./run.sh ~/
-RUN ["chmod", "+x", "~/run.sh"]
-# ENTRYPOINT ["~/run.sh"]
+#ENV LENGTH 20
+#ENV RESOLUTION_X 320
+#ENV RESOLUTION_Y 240
+#ENV FRAMERATE 20
+COPY ./run.sh /root/
+RUN ["chmod", "+x", "/root/run.sh"]
+ENTRYPOINT ["/root/run.sh"]
